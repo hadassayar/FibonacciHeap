@@ -11,7 +11,6 @@ public class FibonacciHeap{
     private int totalCuts;
     private int totalLinks;
 
-
    /**
     * public boolean isEmpty()
     *
@@ -34,15 +33,15 @@ public class FibonacciHeap{
     public HeapNode insert(int key)
     {
         HeapNode node =new HeapNode(key);
-        leftNode = node;
         if(minNode == null){
             minNode = node;
-
+            leftNode = node;
         }else{
-            node.setNext(minNode.next);
-            node.setPrev(minNode);
-            minNode.next.setPrev(node);
-            minNode.setNext(node);
+            node.setNext(leftNode.next);
+            node.setPrev(leftNode);
+            leftNode.next.setPrev(node);
+            leftNode.setNext(node);
+            leftNode = node;
             if(node.getKey() < minNode.getKey()){minNode = node;}
         }
         size ++;
@@ -67,7 +66,10 @@ public class FibonacciHeap{
             }else {
                 minNode.prev.setNext(minNode.next);
                 minNode.next.setPrev(minNode.prev);
-                minNode = minNode.prev;
+                if(minNode == leftNode){
+                    leftNode = leftNode.prev;}
+                minNode = null;
+                minNode = findMin();
                 return;
             }
         }else{ //minNode has a child
@@ -91,12 +93,24 @@ public class FibonacciHeap{
     */
     public HeapNode findMin()
     {
-        HeapNode min = leftNode;
-        HeapNode tempNode = leftNode.next;
-        while (tempNode != leftNode){
-            if(tempNode.getKey() < min.getKey()){min = tempNode;}
-            tempNode = tempNode.next;
-        }return min;
+        if(minNode != null){
+            return minNode;
+        }else{
+            HeapNode min = leftNode;
+            HeapNode tempNode = leftNode.next;
+            while (tempNode.getKey() != leftNode.getKey()) {
+                if(tempNode == tempNode.next){
+                    min = tempNode;
+                    return min;
+                }
+                if (tempNode.getKey() < min.getKey()) {
+                    min = tempNode;
+                }
+                tempNode = tempNode.next;
+            }
+            return min;
+        }
+
     } 
     
    /**
@@ -219,38 +233,48 @@ public class FibonacciHeap{
         int[] arr = new int[100];
         return arr; // should be replaced by student code
     }
-}
-    
-   /**
-    * public class HeapNode
-    * 
-    * If you wish to implement classes other than FibonacciHeap
-    * (for example HeapNode), do it in this file, not in another file. 
-    *  
-    */
-    public static class HeapNode{
-            public int key;
-            public HeapNode parent;
-            public HeapNode child;
-            public HeapNode prev;
-            public HeapNode next;
-            public int rank;
-            public boolean marked;
-
-            public HeapNode(int key) {
-                this.key = key;
-                this.next = this;
-                this.prev = this;
-                this.marked = false;
-                this.rank = 0;
-            }
-
-            public int getKey() {
-                return this.key;
-            }
-            public void setNext(HeapNode node){this.next = node;}
-            public void setPrev(HeapNode node){this.prev = node;}
-            public void setParent(HeapNode node){this.parent = node;}
 
 
+/**
+ * public class HeapNode
+ * <p>
+ * If you wish to implement classes other than FibonacciHeap
+ * (for example HeapNode), do it in this file, not in another file.
+ */
+
+    public static class HeapNode {
+        public int key;
+        public HeapNode parent;
+        public HeapNode child;
+        public HeapNode prev;
+        public HeapNode next;
+        public int rank;
+        public boolean marked;
+
+        public HeapNode(int key) {
+            this.key = key;
+            this.next = this;
+            this.prev = this;
+            this.marked = false;
+            this.rank = 0;
+        }
+
+        public int getKey() {
+            return this.key;
+        }
+
+        public void setNext(HeapNode node) {
+            this.next = node;
+        }
+
+        public void setPrev(HeapNode node) {
+            this.prev = node;
+        }
+
+        public void setParent(HeapNode node) {
+            this.parent = node;
+        }
+
+
+    }
 }
