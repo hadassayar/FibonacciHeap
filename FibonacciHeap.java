@@ -60,8 +60,8 @@ public class FibonacciHeap{
             return;
         }
         size--;
-        if (minNode.child == null){
-            if (minNode.next == minNode){
+        if (minNode.child == null || minNode.child == minNode){
+            if (minNode.next == minNode && minNode.prev == minNode){
                 minNode = null;
             }else {
                 minNode.prev.setNext(minNode.next);
@@ -99,10 +99,6 @@ public class FibonacciHeap{
             HeapNode min = leftNode;
             HeapNode tempNode = leftNode.next;
             while (tempNode.getKey() != leftNode.getKey()) {
-                if(tempNode == tempNode.next){
-                    min = tempNode;
-                    return min;
-                }
                 if (tempNode.getKey() < min.getKey()) {
                     min = tempNode;
                 }
@@ -121,14 +117,14 @@ public class FibonacciHeap{
     */
     public void meld (FibonacciHeap heap2)
     {
-    	  FibonacciHeap heap1 = this;
-          HeapNode temp = heap2.leftNode.next;
-          heap2.leftNode.setNext(heap1.leftNode.next);
-          heap1.leftNode.next.setPrev(heap2.leftNode);
-          heap1.leftNode.setNext(temp);
-          temp.setPrev(heap1.leftNode);
-          if(heap2.minNode.getKey()< heap1.minNode.getKey()){ heap1.minNode = heap2.minNode;}
-          heap1.size += heap2.size;
+        FibonacciHeap heap1 = this;
+        HeapNode temp = heap2.leftNode.next;
+        heap2.leftNode.setNext(heap1.leftNode.next);
+        heap1.leftNode.next.setPrev(heap2.leftNode);
+        heap1.leftNode.setNext(temp);
+        temp.setPrev(heap1.leftNode);
+        if(heap1.minNode.getKey() > heap2.minNode.getKey()){ heap1.minNode = heap2.minNode;}
+        heap1.size += heap2.size;
     }
 
    /**
