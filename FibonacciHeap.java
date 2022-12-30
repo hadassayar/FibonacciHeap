@@ -121,7 +121,14 @@ public class FibonacciHeap{
     */
     public void meld (FibonacciHeap heap2)
     {
-    	  return; // should be replaced by student code   		
+    	  FibonacciHeap heap1 = this;
+          HeapNode temp = heap2.leftNode.next;
+          heap2.leftNode.setNext(heap1.leftNode.next);
+          heap1.leftNode.next.setPrev(heap2.leftNode);
+          heap1.leftNode.setNext(temp);
+          temp.setPrev(heap1.leftNode);
+          if(heap2.minNode.getKey()< heap1.minNode.getKey()){ heap1.minNode = heap2.minNode;}
+          heap1.size += heap2.size;
     }
 
    /**
