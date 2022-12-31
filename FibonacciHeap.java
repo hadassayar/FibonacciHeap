@@ -79,6 +79,8 @@ public class FibonacciHeap{
                 childNode = childNode.prev;
             }while (childNode != minNode.child);
             childNode.prev.setNext(leftNode);
+            childNode.setPrev(leftNode.prev);
+            leftNode.prev.setNext(childNode);
             leftNode.setPrev(childNode.prev);
             leftNode = childNode;
             minNode = findMin();
