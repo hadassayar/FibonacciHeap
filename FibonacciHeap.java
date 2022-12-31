@@ -12,6 +12,7 @@ public class FibonacciHeap{
     private static int totalLinks;
 
     public HeapNode link(HeapNode a, HeapNode b){
+        totalLinks++;
         this.size -=1;
         if (a.rank == 0){
             if (b.key<a.key){
@@ -245,13 +246,26 @@ public class FibonacciHeap{
     * public int[] countersRep()
     *
     * Return an array of counters. The i-th entry contains the number of trees of order i in the heap.
-    * (Note: The size of of the array depends on the maximum order of a tree.)
+    * (Note: The size of the array depends on the maximum order of a tree.)
     * 
     */
     public int[] countersRep()
     {
-    	int[] arr = new int[100];
-        return arr; //	 to be replaced by student code
+        int maxRank = 0;
+        HeapNode node1 = leftNode;
+        do {
+            node1 = node1.next;
+            if (node1.rank > maxRank){ maxRank = node1.rank;}
+        }while (node1 != leftNode);{}
+
+        HeapNode node2 = leftNode;
+        int[] counterArray = new int[maxRank + 1];
+        do {
+            node2 = node2.next;
+            counterArray[node2.rank]++;
+        }while (node2 != leftNode);{}
+
+        return counterArray;
     }
 	
    /**
@@ -288,6 +302,7 @@ public class FibonacciHeap{
         x.setKey(newKey);
         HeapNode parentX = x.parent;
         if (parentX == null || parentX.getKey() <= newKey){
+            if(newKey < minNode.getKey()){minNode = x;}
             return;
         }
         cut(x,parentX);
@@ -325,6 +340,7 @@ public class FibonacciHeap{
             if (x.marked == false) {
                 // mark the node
                 x.marked = true;
+                totalMarked++;
             } else {
                 // cut the node and perform the same steps on its parent
                 cut(x, parentX);
@@ -352,8 +368,16 @@ public class FibonacciHeap{
     * plus twice the number of marked nodes in the heap. 
     */
     public int potential() 
-    {    
-        return -234; // should be replaced by student code
+    {
+        int treeNum = 0;
+        HeapNode node = leftNode;
+        do {
+            node = node.next;
+            treeNum++;
+        }while (node != leftNode);{}
+
+        int potential = treeNum + 2 * totalMarked;
+        return potential;
     }
 
    /**
