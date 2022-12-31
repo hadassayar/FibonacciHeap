@@ -11,6 +11,105 @@ public class FibonacciHeap{
     private static int totalCuts;
     private static int totalLinks;
 
+    public HeapNode link(HeapNode a, HeapNode b){
+        this.size -=1;
+        if (a.rank == 0){
+            if (b.key<a.key){
+                b.prev = a.prev;
+                a.prev.setNext(b);
+                b.child = a;
+                a.setNext(a);
+                a.prev = a;
+                a.parent = b;
+                b.rank +=1;
+                return b;
+            }
+            else {
+                b.next.prev = a;
+                a.setNext(b.next);
+                a.child = b;
+                b.setNext(b);
+                b.prev = b;
+                b.parent = a;
+                a.rank +=1;
+                return a;
+            }
+        }
+        if (b.key<a.key){
+            b.prev = a.prev;
+            a.prev.setNext(b);
+            a.prev = b.child.prev;
+            b.child.prev.setNext(a);
+            b.child.prev = a;
+            a.setNext(b.child);
+            b.child = a;
+            b.rank += 1;
+            a.parent = b;
+            return b;
+        }
+        else {
+            b.next.prev = a;
+            a.setNext(b.next);
+            b.prev =a.child.prev;
+            a.child.prev.setNext(b);
+            a.child.prev = b;
+            b.setNext(a.child);
+            a.child = b;
+            a.rank +=1;
+            b.parent = a;
+            return a;
+        }
+    }
+
+    public void consolidation(){
+        HeapNode node = leftNode;
+        int max = 0;
+        for (int m = 0;m<this.size;m++){
+            if (node.rank>max){
+                max = node.rank;
+            }
+            node = node.next;
+        }
+        HeapNode[] array = new HeapNode[this.size+1+max];
+        for (int i =0 ;i<this.size;i++){
+            int rank = node.rank;
+            if (array[rank] != null){
+                HeapNode s= node.next;
+                HeapNode it_node =link(node,array[rank]);
+                array[rank]=null;
+                while (rank+1<array.length && array[rank+1]!=null){
+                    it_node = link(it_node,array[rank+1]);
+                    array[rank+1] = null;
+                    rank+=1;
+                }
+                if (rank+1<array.length && array[rank+1]==null){
+                    array[rank+1] = it_node;
+                }
+                node = s;
+            }
+            else {
+                array[rank]= node;
+                node = node.next;
+            }
+        }
+        int j = 0;
+        while (array[j]==null){
+            j+=1;
+        }
+        HeapNode n = array[j];
+        this.leftNode = n;
+        for (int m=0;m<array.length;m++){
+            if (array[m] != n && array[m]!=null){
+                n.next = array[m];
+                array[m].prev = n;
+                n=array[m];
+                if (m==array.length){
+                    n.next=this.leftNode;
+                    this.leftNode.prev = n;
+                }
+            }
+        }
+    }
    /**
     * public boolean isEmpty()
     *
@@ -84,6 +183,7 @@ public class FibonacciHeap{
             leftNode.setPrev(childNode.prev);
             leftNode = childNode;
             minNode = findMin();
+            this.consolidation();
             return;
         }
     }
