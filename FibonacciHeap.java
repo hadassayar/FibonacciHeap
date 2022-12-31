@@ -37,10 +37,10 @@ public class FibonacciHeap{
             minNode = node;
             leftNode = node;
         }else{
-            node.setNext(leftNode.next);
-            node.setPrev(leftNode);
-            leftNode.next.setPrev(node);
-            leftNode.setNext(node);
+            node.setPrev(leftNode.prev);
+            node.setNext(leftNode);
+            leftNode.prev.setNext(node);
+            leftNode.setPrev(node);
             leftNode = node;
             if(node.getKey() < minNode.getKey()){minNode = node;}
         }
@@ -78,8 +78,8 @@ public class FibonacciHeap{
                 childNode.parent = null;
                 childNode = childNode.prev;
             }while (childNode != minNode.child);
-            minNode.child.setNext(minNode.next);
-            childNode.setPrev(minNode.prev);
+            childNode.prev.setNext(leftNode);
+            leftNode.setPrev(childNode.prev);
             leftNode = childNode;
             minNode = findMin();
             return;
