@@ -291,6 +291,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test4");
     }
 
     static void test5() {
@@ -311,6 +312,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test5");
     }
 
     static void test6() {
@@ -336,6 +338,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test6");
     }
 
     static void test7() {
@@ -354,6 +357,9 @@ public class Test {
 
         for (int i = 2000; i < 2500; i++) {
             if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()) {
+                System.out.println("expected = "+ heap.findMin() + " actual = " + fibonacciHeap.findMin().getKey());
+                System.out.println("expected = " + heap.size() + " actual = " + fibonacciHeap.size());
+                System.out.println("here");
                 bugFound(test);
                 return;
             }
@@ -369,8 +375,9 @@ public class Test {
             heap.deleteMin();
             fibonacciHeap.deleteMin();
         }
-        if (!fibonacciHeap.isEmpty())
+        if (!fibonacciHeap.isEmpty()) {
             bugFound(test);
+        }
     }
 
     static void test8() {
@@ -624,6 +631,7 @@ public class Test {
     }
 
     static void test16() {
+
         String test = "test16";
         fibonacciHeap = new FibonacciHeap();
 
@@ -1001,14 +1009,14 @@ public class Test {
     }
 
     static void addKeys(int start) {
-        for (int i = 0; i < 5; i++) {//@@@@@@@ i<1000 @@@@@
+        for (int i = 0; i < 1000; i++) {//@@@@@@@ i<1000 @@@@@
             heap.insert(start + i);
             fibonacciHeap.insert(start + i);
         }
     }
 
     static void addKeysReverse(int start) {
-        for (int i = 3; i >= 0; i--) {
+        for (int i = 999; i >= 0; i--) {
             heap.insert(start + i);
             fibonacciHeap.insert(start + i);
         }
