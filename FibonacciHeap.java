@@ -55,11 +55,11 @@ public class FibonacciHeap{
     *
     */
     public void deleteMin()
-    {
+    {   size--;
         if(minNode == null){
             return;
         }
-        size--;
+
         if (minNode.child == null || minNode.child == minNode){
             if (minNode.next == minNode && minNode.prev == minNode){
                 minNode = null;
@@ -163,7 +163,13 @@ public class FibonacciHeap{
     */
     public void delete(HeapNode x) 
     {    
-    	return; // should be replaced by student code
+    	int minKey = minNode.getKey();
+        // decrease the key of x to the minimum key
+        int delta = x.getKey() - (minKey);
+        decreaseKey(x, delta);
+        // now x is the minNode so we just use the deleteMin() method
+        deleteMin();
+
     }
 
    /**
@@ -174,9 +180,58 @@ public class FibonacciHeap{
     */
     public void decreaseKey(HeapNode x, int delta)
     {    
-    	return; // should be replaced by student code
+    	if(x.getKey() - delta > x.getKey() ){
+            // the new key should be smaller than the current key.
+            return;
+        }
+        int newKey = x.getKey() - delta;
+        x.setKey(newKey);
+        HeapNode parentX = x.parent;
+        if (parentX == null || parentX.getKey() <= newKey){
+            return;
+        }
+        cut(x,parentX);
+        // if parentX was marked we recursively perform the same steps on it
+        if(parentX.marked){cascadingCut(parentX);}
+        //update minNode
+        if(newKey < minNode.getKey()){minNode = x;}
     }
 
+    private void cut(HeapNode x, HeapNode parentX){
+        totalCuts++;
+        if(x.next == x){parentX.child = null;} // the node is the only child of its parent(point to himself) so we just cut.
+        else {
+            x.prev.setNext(x.next);
+            x.next.setPrev(x.prev);
+            if(parentX.child == x){
+                // x is the left child
+                parentX.child = x.next;
+            }
+        }
+        parentX.rank--;
+        // add x as a root in the heap
+        x.setPrev(leftNode.prev);
+        x.setNext(leftNode);
+        leftNode.prev.setNext(x);
+        leftNode.setPrev(x);
+        //unmark the node and mark its parent as a parent who lost a child
+        x.marked = false;
+        parentX.marked = true;
+    }
+
+    private void cascadingCut(HeapNode x) {
+        HeapNode parentX = x.parent;
+        if(parentX != null) {
+            if (x.marked == false) {
+                // mark the node
+                x.marked = true;
+            } else {
+                // cut the node and perform the same steps on its parent
+                cut(x, parentX);
+                cascadingCut(parentX);
+            }
+        }
+    }
    /**
     * public int nonMarked() 
     *
@@ -268,6 +323,7 @@ public class FibonacciHeap{
         public int getKey() {
             return this.key;
         }
+        public void setKey(int newKey){this.key = newKey;}
 
         public void setNext(HeapNode node) {
             this.next = node;
