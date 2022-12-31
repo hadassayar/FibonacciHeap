@@ -80,6 +80,7 @@ public class FibonacciHeap{
             }while (childNode != minNode.child);
             minNode.child.setNext(minNode.next);
             childNode.setPrev(minNode.prev);
+            leftNode = childNode;
             minNode = findMin();
             return;
         }
