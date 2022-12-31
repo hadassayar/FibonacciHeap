@@ -8,8 +8,8 @@ public class FibonacciHeap{
     private HeapNode leftNode;
     private int size;
     private int totalMarked;
-    private int totalCuts;
-    private int totalLinks;
+    private static int totalCuts;
+    private static int totalLinks;
 
    /**
     * public boolean isEmpty()
@@ -266,7 +266,7 @@ public class FibonacciHeap{
     */
     public static int totalLinks()
     {    
-    	return totalLinks(); // should be replaced by student code
+    	return totalLinks;
     }
 
    /**
@@ -278,7 +278,7 @@ public class FibonacciHeap{
     */
     public static int totalCuts()
     {    
-    	return totalCuts(); // should be replaced by student code
+    	return totalCuts;
     }
 
      /**
