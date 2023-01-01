@@ -52,15 +52,15 @@ public class FibonacciHeap{
             return a;
         }
     }
-    private void fix_array (HeapNode[] array,HeapNode node){
+    private int fix_array (HeapNode[] array,HeapNode node){
         int ranked = node.rank;
         if (array[node.rank] == null){
             array[node.rank]=node;
-            return ;
+            return 0;
         }
         HeapNode new_node = link(node,array[node.rank]);
         array[ranked] = null;
-        fix_array(array, new_node);
+        return fix_array(array, new_node);
     }
 
     private HeapNode[] createarray(int cnt){
@@ -199,15 +199,6 @@ public class FibonacciHeap{
             }
         }else{
             HeapNode childNode = minNode.child;
-            if (childNode.next == childNode){
-                minNode.setKey(childNode.getKey());
-                childNode.setParent(null);
-                minNode.setChild(null);
-                consolidation();
-                minNode = null;
-                minNode = findMin();
-                return;
-            }
             if (leftNode==minNode){
                 if (leftNode.next==leftNode){
                     do {
@@ -244,6 +235,8 @@ public class FibonacciHeap{
                 childNode.parent = null;
                 childNode = childNode.prev;
             }while (childNode != minNode.child);
+            minNode.prev.setNext(minNode.next);
+            minNode.next.setPrev(minNode.prev);
             childNode.prev.setNext(leftNode);
             childNode.setPrev(leftNode.prev);
             leftNode.prev.setNext(childNode);
