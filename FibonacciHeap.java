@@ -405,7 +405,9 @@ public class FibonacciHeap{
             } else {
                 // cut the node and perform the same steps on its parent
                 cut(x, parentX);
-                cascadingCut(parentX);
+                if (parentX.marked == false){
+                    cascadingCut(parentX);
+                }
             }
         }
     }
