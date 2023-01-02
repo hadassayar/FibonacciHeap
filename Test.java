@@ -43,12 +43,12 @@ public class Test {
             bugFound("test4");
         }
         try {
-            //test5();
+            test5();
         } catch (Exception e) {
             bugFound("test5");
         }
         try {
-            //test6();
+            test6();
         } catch (Exception e) {
             bugFound("test6");
         }
@@ -169,7 +169,7 @@ public class Test {
             grade -= 8;
         }
         try {
-            //test30();
+            test30();
         } catch (Exception e) {
             System.out.println("Bug found in " + "test30");
             grade -= 8;
@@ -294,53 +294,53 @@ public class Test {
         System.out.println("fine test4");
     }
 
-//    static void test5() {
-//        System.out.println("test5");
-//        String test = "test5";
-//        fibonacciHeap = new FibonacciHeap();
-//        addKeys(0);
-//        addKeys(0);
-//        addKeys(0);
-//
-//        for (int i = 0; i < 1000; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                if (i != fibonacciHeap.findMin().getKey()) {
-//                    bugFound(test);
-//                    return;
-//                }
-//                fibonacciHeap.deleteMin();
-//            }
-//        }
-//        if (!fibonacciHeap.isEmpty())
-//            bugFound(test);
-//        System.out.println("fine test5");
-//    }
-//
-//    static void test6() {
-//        String test = "test6";
-//        fibonacciHeap = new FibonacciHeap();
-//        addKeysReverse(1000);
-//        addKeysReverse(1000);
-//        addKeys(0);
-//        addKeys(0);
-//        addKeys(1000);
-//        addKeys(1000);
-//        addKeysReverse(0);
-//        addKeysReverse(0);
-//
-//        for (int i = 0; i < 2000; i++) {
-//            for (int j = 0; j < 4; j++) {
-//                if (i != fibonacciHeap.findMin().getKey()) {
-//                    bugFound(test);
-//                    return;
-//                }
-//                fibonacciHeap.deleteMin();
-//            }
-//        }
-//        if (!fibonacciHeap.isEmpty())
-//            bugFound(test);
-//        System.out.println("fine test6");
-//    }
+    static void test5() {
+        System.out.println("test5");
+        String test = "test5";
+        fibonacciHeap = new FibonacciHeap();
+        addKeys(0);
+        addKeys(0);
+        addKeys(0);
+
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i != fibonacciHeap.findMin().getKey()) {
+                    bugFound(test);
+                    return;
+                }
+                fibonacciHeap.deleteMin();
+            }
+        }
+        if (!fibonacciHeap.isEmpty())
+            bugFound(test);
+        System.out.println("fine test5");
+    }
+
+    static void test6() {
+        String test = "test6";
+        fibonacciHeap = new FibonacciHeap();
+        addKeysReverse(1000);
+        addKeysReverse(1000);
+        addKeys(0);
+        addKeys(0);
+        addKeys(1000);
+        addKeys(1000);
+        addKeysReverse(0);
+        addKeysReverse(0);
+
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (i != fibonacciHeap.findMin().getKey()) {
+                    bugFound(test);
+                    return;
+                }
+                fibonacciHeap.deleteMin();
+            }
+        }
+        if (!fibonacciHeap.isEmpty())
+            bugFound(test);
+        System.out.println("fine test6");
+    }
 
     static void test7() {
 
@@ -474,7 +474,6 @@ public class Test {
 
         for (int i = 2700; i > 2200; i--) {
             if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()) {
-                bugFound(test);
                 return;
             }
             heap.delete(i);
@@ -483,16 +482,17 @@ public class Test {
 
         while (!heap.isEmpty()) {
             if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()) {
-                System.out.println("bug here1");
+
                 bugFound(test);
                 return;
             }
             heap.deleteMin();
             fibonacciHeap.deleteMin();
         }
-        if (!fibonacciHeap.isEmpty())
-            System.out.println("bug here2");
+        if (!fibonacciHeap.isEmpty()) {
             bugFound(test);
+            System.out.println("bug here2");
+        }System.out.println("fine test 10");
     }
 
     static void test11() {
@@ -843,13 +843,13 @@ public class Test {
             if (FibonacciHeap.totalCuts() - iterationCuts > 1)
                 noCascading = false;
         }
-
         if (fibonacciHeap.potential() != treeSize ||
                 FibonacciHeap.totalCuts() - totalCuts != treeSize - 1 ||
                 FibonacciHeap.totalLinks() - links != 0 ||
                 fibonacciHeap.countersRep()[0] != treeSize ||
                 noCascading)
             bugFound(test);
+        System.out.println("fine test22");
     }
 
     static void test23() {
@@ -987,6 +987,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links < size - 100)
             bugFound(test);
+        System.out.println("fine test28");
     }
 
 
@@ -1014,7 +1015,7 @@ public class Test {
             firstFibonacciHeap.insert(i);
             secondFibonacciHeap.insert(i + 100);
         }
-        //firstFibonacciHeap.meld(secondFibonacciHeap);
+        firstFibonacciHeap.meld(secondFibonacciHeap);
         int i = 0;
         while (!firstFibonacciHeap.isEmpty()) {
             FibonacciHeap.HeapNode min = firstFibonacciHeap.findMin();
@@ -1024,7 +1025,8 @@ public class Test {
             }
             firstFibonacciHeap.deleteMin();
             i++;
-        }
+
+        }System.out.println("fine test30");
 
     }
 

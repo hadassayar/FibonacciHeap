@@ -337,7 +337,7 @@ public class FibonacciHeap{
     *
     */
     public void delete(HeapNode x) 
-    {    
+    {   if (x.marked){totalMarked--;}
     	int minKey = minNode.getKey();
         // decrease the key of x to the minimum key
         int delta = x.getKey() - (minKey);
@@ -392,15 +392,17 @@ public class FibonacciHeap{
         x.parent = null;
         leftNode.prev.setNext(x);
         leftNode.setPrev(x);
-        x.marked = false;
+        if(x.marked){
+            x.marked = false;
+            totalMarked--;
+        }
         leftNode = x;
     }
 
     private void cascadingCut(HeapNode x, HeapNode parentX) {
         cut(x,parentX);
         if(parentX.parent != null) {
-            if (parentX.marked == false && parentX.parent != null) {// mark the node
-               // if(parentX.parent == null){return;}
+            if (parentX.marked == false) {// mark the node
                 parentX.marked = true;
                 totalMarked++;
             } else {
