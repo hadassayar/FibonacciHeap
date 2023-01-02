@@ -7,7 +7,7 @@ public class FibonacciHeap{
     private HeapNode minNode;
     private HeapNode leftNode;
     private int size;
-    private int totalMarked;
+    public int totalMarked;
     private static int totalCuts;
     private static int totalLinks;
 
@@ -111,7 +111,7 @@ public class FibonacciHeap{
         }
     }
 
-    private int number_trees (){
+    public int numberOftrees(){
         HeapNode node = leftNode.next;
         int cnt = 1;
         while (node != leftNode){
@@ -123,7 +123,7 @@ public class FibonacciHeap{
 
 
     private void consolidation() {
-        int trees_number = number_trees();
+        int trees_number = numberOftrees();
         HeapNode[] itarray = createarray(trees_number);
         HeapNode[] mainarray = create_main_array(trees_number);
         for (HeapNode node : itarray) {
@@ -365,17 +365,18 @@ public class FibonacciHeap{
         if (parentX == null || parentX.getKey() <= newKey){
             if(newKey < minNode.getKey()){minNode = x;}
             return;
-        }
-        cut(x,parentX);
-        // if parentX was marked we recursively perform the same steps on it
-        if(parentX.marked){cascadingCut(parentX);}
-        //update minNode
-        if(newKey < minNode.getKey()){minNode = x;}
+        }else{
+            cascadingCut(x,parentX);}
+        if(newKey < minNode.getKey()){minNode = x;}//update minNode
+
+
     }
 
     private void cut(HeapNode x, HeapNode parentX){
         totalCuts++;
-        if(x.next == x){parentX.child = null;} // the node is the only child of its parent(point to himself) so we just cut.
+        if(x.next == x){// the node is the only child of its parent(point to himself) so we just cut.
+            parentX.child = null;
+        }
         else {
             x.prev.setNext(x.next);
             x.next.setPrev(x.prev);
@@ -388,26 +389,23 @@ public class FibonacciHeap{
         // add x as a root in the heap
         x.setPrev(leftNode.prev);
         x.setNext(leftNode);
+        x.parent = null;
         leftNode.prev.setNext(x);
         leftNode.setPrev(x);
-        //unmark the node and mark its parent as a parent who lost a child
         x.marked = false;
-        parentX.marked = true;
+        leftNode = x;
     }
 
-    private void cascadingCut(HeapNode x) {
-        HeapNode parentX = x.parent;
-        if(parentX != null) {
-            if (x.marked == false) {
-                // mark the node
-                x.marked = true;
+    private void cascadingCut(HeapNode x, HeapNode parentX) {
+        cut(x,parentX);
+        if(parentX.parent != null) {
+            if (parentX.marked == false && parentX.parent != null) {// mark the node
+               // if(parentX.parent == null){return;}
+                parentX.marked = true;
                 totalMarked++;
             } else {
                 // cut the node and perform the same steps on its parent
-                cut(x, parentX);
-                if (parentX.marked == false){
-                    cascadingCut(parentX);
-                }
+                cascadingCut(parentX,parentX.parent );
             }
         }
     }
@@ -432,13 +430,7 @@ public class FibonacciHeap{
     */
     public int potential() 
     {
-        int treeNum = 0;
-        HeapNode node = leftNode;
-        do {
-            node = node.next;
-            treeNum++;
-        }while (node != leftNode);{}
-
+        int treeNum =numberOftrees();
         int potential = treeNum + 2 * totalMarked;
         return potential;
     }
