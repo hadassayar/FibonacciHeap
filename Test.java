@@ -17,116 +17,116 @@ public class Test {
         grade = 80.0;
         testScore = 64.0 / 29;
 
-//        try {
-//            test0();
-//        } catch (Exception e) {
-//            bugFound("test0");
-//        }
-//        try {
-//            test1();
-//        } catch (Exception e) {
-//            bugFound("test1");
-//        }
-//        try {
-//            test2();
-//        } catch (Exception e) {
-//            bugFound("test2");
-//        }
-//        try {
-//            test3();
-//        } catch (Exception e) {
-//            bugFound("test3");
-//        }
-//        try {
-//            test4();
-//        } catch (Exception e) {
-//            bugFound("test4");
-//        }
-//        try {
-//            //test5();
-//        } catch (Exception e) {
-//            bugFound("test5");
-//        }
-//        try {
-//            //test6();
-//        } catch (Exception e) {
-//            bugFound("test6");
-//        }
-//        try {
-//            test7();
-//        } catch (Exception e) {
-//            bugFound("test7");
-//        }
-//        try {
-//            test8();
-//        } catch (Exception e) {
-//            bugFound("test8");
-//        }
-//        try {
-//            test9();
-//        } catch (Exception e) {
-//            bugFound("test9");
-//        }
-//        try {
-//            test10();
-//        } catch (Exception e) {
-//            bugFound("test10");
-//        }
-//        try {
-//            test11();
-//        } catch (Exception e) {
-//            bugFound("test11");
-//        }
-//        try {
-//            test12();
-//        } catch (Exception e) {
-//            bugFound("test12");
-//        }
-//        try {
-//            test13();
-//        } catch (Exception e) {
-//            bugFound("test13");
-//        }
-//        try {
-//            test14();
-//        } catch (Exception e) {
-//            bugFound("test14");
-//        }
-//        try {
-//            test15();
-//        } catch (Exception e) {
-//            bugFound("test15");
-//        }
-//        try {
-//            test16();
-//        } catch (Exception e) {
-//            bugFound("test16");
-//        }
-//        try {
-//            test17();
-//        } catch (Exception e) {
-//            bugFound("test17");
-//        }
-//        try {
-//            test18();
-//        } catch (Exception e) {
-//            bugFound("test18");
-//        }
-//        try {
-//            test19();
-//        } catch (Exception e) {
-//            bugFound("test19");
-//        }
-//        try {
-//            test20();
-//        } catch (Exception e) {
-//            bugFound("test20");
-//        }
-//        try {
-//            test21();
-//        } catch (Exception e) {
-//            bugFound("test21");
-//        }
+        try {
+            test0();
+        } catch (Exception e) {
+            bugFound("test0");
+        }
+        try {
+            test1();
+        } catch (Exception e) {
+            bugFound("test1");
+        }
+        try {
+            test2();
+        } catch (Exception e) {
+            bugFound("test2");
+        }
+        try {
+            test3();
+        } catch (Exception e) {
+            bugFound("test3");
+        }
+        try {
+            test4();
+        } catch (Exception e) {
+            bugFound("test4");
+        }
+        try {
+            //test5();
+        } catch (Exception e) {
+            bugFound("test5");
+        }
+        try {
+            //test6();
+        } catch (Exception e) {
+            bugFound("test6");
+        }
+        try {
+            test7();
+        } catch (Exception e) {
+            bugFound("test7");
+        }
+        try {
+            test8();
+        } catch (Exception e) {
+            bugFound("test8");
+        }
+        try {
+            test9();
+        } catch (Exception e) {
+            bugFound("test9");
+        }
+        try {
+            test10();
+        } catch (Exception e) {
+            bugFound("test10");
+        }
+        try {
+            test11();
+        } catch (Exception e) {
+            bugFound("test11");
+        }
+        try {
+            test12();
+        } catch (Exception e) {
+            bugFound("test12");
+        }
+        try {
+            test13();
+        } catch (Exception e) {
+            bugFound("test13");
+        }
+        try {
+            test14();
+        } catch (Exception e) {
+            bugFound("test14");
+        }
+        try {
+            test15();
+        } catch (Exception e) {
+            bugFound("test15");
+        }
+        try {
+            test16();
+        } catch (Exception e) {
+            bugFound("test16");
+        }
+        try {
+            test17();
+        } catch (Exception e) {
+            bugFound("test17");
+        }
+        try {
+            test18();
+        } catch (Exception e) {
+            bugFound("test18");
+        }
+        try {
+            test19();
+        } catch (Exception e) {
+            bugFound("test19");
+        }
+        try {
+            test20();
+        } catch (Exception e) {
+            bugFound("test20");
+        }
+        try {
+            test21();
+        } catch (Exception e) {
+            bugFound("test21");
+        }
         try {
             test22();
         } catch (Exception e) {
