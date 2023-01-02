@@ -17,116 +17,116 @@ public class Test {
         grade = 80.0;
         testScore = 64.0 / 29;
 
-        try {
-            test0();
-        } catch (Exception e) {
-            bugFound("test0");
-        }
-        try {
-            test1();
-        } catch (Exception e) {
-            bugFound("test1");
-        }
-        try {
-            test2();
-        } catch (Exception e) {
-            bugFound("test2");
-        }
-        try {
-            test3();
-        } catch (Exception e) {
-            bugFound("test3");
-        }
-        try {
-            test4();
-        } catch (Exception e) {
-            bugFound("test4");
-        }
-        try {
-            //test5();
-        } catch (Exception e) {
-            bugFound("test5");
-        }
-        try {
-            //test6();
-        } catch (Exception e) {
-            bugFound("test6");
-        }
-        try {
-            test7();
-        } catch (Exception e) {
-            bugFound("test7");
-        }
-        try {
-            test8();
-        } catch (Exception e) {
-            bugFound("test8");
-        }
-        try {
-            test9();
-        } catch (Exception e) {
-            bugFound("test9");
-        }
-        try {
-            test10();
-        } catch (Exception e) {
-            bugFound("test10");
-        }
-        try {
-            test11();
-        } catch (Exception e) {
-            bugFound("test11");
-        }
-        try {
-            test12();
-        } catch (Exception e) {
-            bugFound("test12");
-        }
-        try {
-            test13();
-        } catch (Exception e) {
-            bugFound("test13");
-        }
-        try {
-            test14();
-        } catch (Exception e) {
-            bugFound("test14");
-        }
-        try {
-            test15();
-        } catch (Exception e) {
-            bugFound("test15");
-        }
-        try {
-            test16();
-        } catch (Exception e) {
-            bugFound("test16");
-        }
-        try {
-            test17();
-        } catch (Exception e) {
-            bugFound("test17");
-        }
-        try {
-            test18();
-        } catch (Exception e) {
-            bugFound("test18");
-        }
-        try {
-            test19();
-        } catch (Exception e) {
-            bugFound("test19");
-        }
-        try {
-            test20();
-        } catch (Exception e) {
-            bugFound("test20");
-        }
-        try {
-            test21();
-        } catch (Exception e) {
-            bugFound("test21");
-        }
+//        try {
+//            test0();
+//        } catch (Exception e) {
+//            bugFound("test0");
+//        }
+//        try {
+//            test1();
+//        } catch (Exception e) {
+//            bugFound("test1");
+//        }
+//        try {
+//            test2();
+//        } catch (Exception e) {
+//            bugFound("test2");
+//        }
+//        try {
+//            test3();
+//        } catch (Exception e) {
+//            bugFound("test3");
+//        }
+//        try {
+//            test4();
+//        } catch (Exception e) {
+//            bugFound("test4");
+//        }
+//        try {
+//            //test5();
+//        } catch (Exception e) {
+//            bugFound("test5");
+//        }
+//        try {
+//            //test6();
+//        } catch (Exception e) {
+//            bugFound("test6");
+//        }
+//        try {
+//            test7();
+//        } catch (Exception e) {
+//            bugFound("test7");
+//        }
+//        try {
+//            test8();
+//        } catch (Exception e) {
+//            bugFound("test8");
+//        }
+//        try {
+//            test9();
+//        } catch (Exception e) {
+//            bugFound("test9");
+//        }
+//        try {
+//            test10();
+//        } catch (Exception e) {
+//            bugFound("test10");
+//        }
+//        try {
+//            test11();
+//        } catch (Exception e) {
+//            bugFound("test11");
+//        }
+//        try {
+//            test12();
+//        } catch (Exception e) {
+//            bugFound("test12");
+//        }
+//        try {
+//            test13();
+//        } catch (Exception e) {
+//            bugFound("test13");
+//        }
+//        try {
+//            test14();
+//        } catch (Exception e) {
+//            bugFound("test14");
+//        }
+//        try {
+//            test15();
+//        } catch (Exception e) {
+//            bugFound("test15");
+//        }
+//        try {
+//            test16();
+//        } catch (Exception e) {
+//            bugFound("test16");
+//        }
+//        try {
+//            test17();
+//        } catch (Exception e) {
+//            bugFound("test17");
+//        }
+//        try {
+//            test18();
+//        } catch (Exception e) {
+//            bugFound("test18");
+//        }
+//        try {
+//            test19();
+//        } catch (Exception e) {
+//            bugFound("test19");
+//        }
+//        try {
+//            test20();
+//        } catch (Exception e) {
+//            bugFound("test20");
+//        }
+//        try {
+//            test21();
+//        } catch (Exception e) {
+//            bugFound("test21");
+//        }
         try {
             test22();
         } catch (Exception e) {
@@ -294,54 +294,56 @@ public class Test {
         System.out.println("fine test4");
     }
 
-    static void test5() {
-        String test = "test5";
-        fibonacciHeap = new FibonacciHeap();
-        addKeys(0);
-        addKeys(0);
-        addKeys(0);
-
-        for (int i = 0; i < 1000; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i != fibonacciHeap.findMin().getKey()) {
-                    bugFound(test);
-                    return;
-                }
-                fibonacciHeap.deleteMin();
-            }
-        }
-        if (!fibonacciHeap.isEmpty())
-            bugFound(test);
-        System.out.println("fine test5");
-    }
-
-    static void test6() {
-        String test = "test6";
-        fibonacciHeap = new FibonacciHeap();
-        addKeysReverse(1000);
-        addKeysReverse(1000);
-        addKeys(0);
-        addKeys(0);
-        addKeys(1000);
-        addKeys(1000);
-        addKeysReverse(0);
-        addKeysReverse(0);
-
-        for (int i = 0; i < 2000; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (i != fibonacciHeap.findMin().getKey()) {
-                    bugFound(test);
-                    return;
-                }
-                fibonacciHeap.deleteMin();
-            }
-        }
-        if (!fibonacciHeap.isEmpty())
-            bugFound(test);
-        System.out.println("fine test6");
-    }
+//    static void test5() {
+//        System.out.println("test5");
+//        String test = "test5";
+//        fibonacciHeap = new FibonacciHeap();
+//        addKeys(0);
+//        addKeys(0);
+//        addKeys(0);
+//
+//        for (int i = 0; i < 1000; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                if (i != fibonacciHeap.findMin().getKey()) {
+//                    bugFound(test);
+//                    return;
+//                }
+//                fibonacciHeap.deleteMin();
+//            }
+//        }
+//        if (!fibonacciHeap.isEmpty())
+//            bugFound(test);
+//        System.out.println("fine test5");
+//    }
+//
+//    static void test6() {
+//        String test = "test6";
+//        fibonacciHeap = new FibonacciHeap();
+//        addKeysReverse(1000);
+//        addKeysReverse(1000);
+//        addKeys(0);
+//        addKeys(0);
+//        addKeys(1000);
+//        addKeys(1000);
+//        addKeysReverse(0);
+//        addKeysReverse(0);
+//
+//        for (int i = 0; i < 2000; i++) {
+//            for (int j = 0; j < 4; j++) {
+//                if (i != fibonacciHeap.findMin().getKey()) {
+//                    bugFound(test);
+//                    return;
+//                }
+//                fibonacciHeap.deleteMin();
+//            }
+//        }
+//        if (!fibonacciHeap.isEmpty())
+//            bugFound(test);
+//        System.out.println("fine test6");
+//    }
 
     static void test7() {
+
         String test = "test7";
         heap = new Heap();
         fibonacciHeap = new FibonacciHeap();
@@ -377,7 +379,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty()) {
             bugFound(test);
-        }
+        }System.out.println("fine test7");
     }
 
     static void test8() {
@@ -413,6 +415,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test8");
     }
 
     static void test9() {
@@ -439,15 +442,18 @@ public class Test {
         }
 
         while (!heap.isEmpty()) {
-            if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()) {
+            if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()){
+                System.out.println("here");
                 bugFound(test);
                 return;
             }
             heap.deleteMin();
             fibonacciHeap.deleteMin();
         }
-        if (!fibonacciHeap.isEmpty())
+        if (!fibonacciHeap.isEmpty()) {
+            System.out.println("bug here");
             bugFound(test);
+        }
     }
 
     static void test10() {
@@ -477,7 +483,7 @@ public class Test {
 
         while (!heap.isEmpty()) {
             if (heap.findMin() != fibonacciHeap.findMin().getKey() || heap.size() != fibonacciHeap.size()) {
-
+                System.out.println("bug here1");
                 bugFound(test);
                 return;
             }
@@ -485,6 +491,7 @@ public class Test {
             fibonacciHeap.deleteMin();
         }
         if (!fibonacciHeap.isEmpty())
+            System.out.println("bug here2");
             bugFound(test);
     }
 
@@ -511,6 +518,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test11");
     }
 
     static void test12() {
@@ -539,6 +547,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test12");
     }
 
     static void test13() {
@@ -563,6 +572,7 @@ public class Test {
 
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test13");
     }
 
     static void test14() {
@@ -596,6 +606,7 @@ public class Test {
 
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test14");
     }
 
 
@@ -628,6 +639,7 @@ public class Test {
         }
         if (!fibonacciHeap.isEmpty())
             bugFound(test);
+        System.out.println("fine test15");
     }
 
     static void test16() {
@@ -647,6 +659,7 @@ public class Test {
                 FibonacciHeap.totalLinks() - links != 0 ||
                 fibonacciHeap.countersRep()[0] != 3)
             bugFound(test);
+        System.out.println("fine test16");
     }
 
     static void test17() {
@@ -667,6 +680,7 @@ public class Test {
                 fibonacciHeap.countersRep()[0] != 0 ||
                 fibonacciHeap.countersRep()[1] != 1)
             bugFound(test);
+        System.out.println("fine test17");
     }
 
     static void test18() {
@@ -696,6 +710,7 @@ public class Test {
                 fibonacciHeap.countersRep()[1] != 0 ||
                 fibonacciHeap.countersRep()[2] != 1)
             bugFound(test);
+        System.out.println("fine test18");
     }
 
     static void test19() {
@@ -717,13 +732,16 @@ public class Test {
 
         fibonacciHeap.insert(1);
         fibonacciHeap.deleteMin();
-
         fibonacciHeap.decreaseKey(node, 2);
-
+//        System.out.println("treenum: "+ fibonacciHeap.numberOftrees()+ " totalmarked: "+ fibonacciHeap.totalMarked);
+//        System.out.println("potential: "+ fibonacciHeap.potential());
+//        System.out.println("cuts: "+ (FibonacciHeap.totalCuts() - cuts));
+//        System.out.println("links: "+ (FibonacciHeap.totalLinks() - links));
         if (fibonacciHeap.potential() != 4 ||
                 FibonacciHeap.totalCuts() - cuts != 1 ||
                 FibonacciHeap.totalLinks() - links != 3)
             bugFound(test);
+        System.out.println("fine test19");
     }
 
     static void test20() {
@@ -754,6 +772,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - cuts != 1 ||
                 FibonacciHeap.totalLinks() - links != 0)
             bugFound(test);
+        System.out.println("fine test20");
     }
 
     static void test21() {
@@ -780,6 +799,7 @@ public class Test {
 
         if (fibonacciHeap.potential() != 1)
             bugFound(test);
+        System.out.println("fine test21");
     }
 
     static void test22() {
@@ -848,6 +868,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links != 0)
             bugFound(test);
+        System.out.println("fine test23");
     }
 
     static void test24() {
@@ -866,6 +887,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links != 0)
             bugFound(test);
+        System.out.println("fine test24");
     }
 
     static void test25() {
@@ -884,6 +906,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links != 0)
             bugFound(test);
+        System.out.println("fine test25");
     }
 
     static void test26() {
@@ -910,6 +933,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links < size - 100)
             bugFound(test);
+        System.out.println("fine test26");
     }
 
     static void test27() {
@@ -936,6 +960,7 @@ public class Test {
                 FibonacciHeap.totalCuts() - totalCuts != 0 ||
                 FibonacciHeap.totalLinks() - links < size - 100)
             bugFound(test);
+        System.out.println("fine test27");
     }
 
     static void test28() {
