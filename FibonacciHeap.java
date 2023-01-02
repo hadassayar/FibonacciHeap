@@ -139,7 +139,7 @@ public class FibonacciHeap{
     */
     public boolean isEmpty()
     {
-        return (minNode == null );
+        return (minNode == null);
     }
 		
    /**
@@ -475,7 +475,9 @@ public class FibonacciHeap{
         int[] arr = new int[100];
         return arr; // should be replaced by student code
     }
-
+    public HeapNode getFirst(){
+        return leftNode;
+    }
 
 /**
  * public class HeapNode
@@ -521,6 +523,27 @@ public class FibonacciHeap{
         public void setChild(HeapNode node) {
         this.child = node;
     }
+        public HeapNode getNext(){
+            return next;
+        }
+        public HeapNode getPrev(){
+            return prev;
+        }
+        public HeapNode getChild(){
+            return child;
+        }
+
+        public HeapNode getParent(){
+            return parent;
+        }
+
+        public int getRank(){
+            return rank;
+        }
+
+        public boolean getMarked(){
+            return marked;
+        }
 
     }
 }
