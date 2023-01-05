@@ -187,6 +187,7 @@ public class FibonacciHeap{
             leftNode = null;
             return;
         }
+        // minnode doesn't have children
         if (minNode.child == null || minNode.child == minNode){
             if (minNode.next == minNode && minNode.prev == minNode){
                 minNode = null;
@@ -200,10 +201,10 @@ public class FibonacciHeap{
                 minNode = findMin();
                 return;
             }
-        }else{
+        }else{  //minnode has children
             HeapNode childNode = minNode.child;
             if (leftNode==minNode){
-                if (leftNode.next==leftNode){
+                if (leftNode.next==leftNode){ //this is the only root in the heap
                     do {
                         if(childNode.marked ==  true){
                             childNode.marked = false;
@@ -220,7 +221,7 @@ public class FibonacciHeap{
                     minNode = findMin();
                     return;
                 }
-                else {
+                else { //the heap has several roots
                     do {
                         if(childNode.marked ==  true){
                             childNode.marked = false;
@@ -250,13 +251,23 @@ public class FibonacciHeap{
                 childNode.parent = null;
                 childNode = childNode.prev;
             }while (childNode != minNode.child);
-            minNode.prev.setNext(minNode.next);
-            minNode.next.setPrev(minNode.prev);
-            childNode.prev.setNext(leftNode);
-            childNode.setPrev(leftNode.prev);
-            leftNode.prev.setNext(childNode);
-            leftNode.setPrev(childNode.prev);
-            leftNode = childNode;
+            HeapNode prv = minNode.prev;
+            HeapNode nxt = minNode.next;
+            childNode.prev.setNext(nxt);
+            nxt.setPrev(childNode.prev);
+            childNode.setPrev(prv);
+            prv.setNext(childNode);
+
+
+
+
+//            minNode.prev.setNext(minNode.next);
+//            minNode.next.setPrev(minNode.prev);
+//            childNode.prev.setNext(leftNode);
+//            childNode.setPrev(leftNode.prev);
+//            leftNode.prev.setNext(childNode);
+//            leftNode.setPrev(childNode.prev);
+//            leftNode = childNode;
             minNode.setChild(null);
             consolidation();
             minNode.setKey(Integer.MAX_VALUE);
