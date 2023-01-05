@@ -205,6 +205,10 @@ public class FibonacciHeap{
             if (leftNode==minNode){
                 if (leftNode.next==leftNode){
                     do {
+                        if(childNode.marked ==  true){
+                            childNode.marked = false;
+                            totalMarked--;
+                        }
                         childNode.parent = null;
                         childNode = childNode.prev;
                     }while (childNode != minNode.child);
@@ -218,6 +222,10 @@ public class FibonacciHeap{
                 }
                 else {
                     do {
+                        if(childNode.marked ==  true){
+                            childNode.marked = false;
+                            totalMarked--;
+                        }
                         childNode.parent = null;
                         childNode = childNode.prev;
                     }while (childNode != minNode.child);
@@ -235,6 +243,10 @@ public class FibonacciHeap{
                 }
             }
             do {
+                if(childNode.marked ==  true){
+                    childNode.marked = false;
+                    totalMarked--;
+                }
                 childNode.parent = null;
                 childNode = childNode.prev;
             }while (childNode != minNode.child);
@@ -304,6 +316,7 @@ public class FibonacciHeap{
         temp.setPrev(heap1.leftNode);
         if(heap1.minNode.getKey() > heap2.minNode.getKey()){ heap1.minNode = heap2.minNode;}
         heap1.size += heap2.size;
+        heap1.totalMarked += heap2.totalMarked;
     }
 
    /**
