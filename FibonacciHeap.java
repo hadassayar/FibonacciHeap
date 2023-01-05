@@ -356,13 +356,22 @@ public class FibonacciHeap{
     */
     public void delete(HeapNode x)
     {   if (x.marked){totalMarked--;}
-    	int minKey = minNode.getKey();
-        // decrease the key of x to the minimum key
-        int delta = Integer.MIN_VALUE;
-        decreaseKey(x, delta);
-        // now x is the minNode so we just use the deleteMin() method
-        deleteMin();
+        if(minNode.getKey() == Integer.MIN_VALUE){
+            // decrease the key of x to the minimum key
+            minNode.setKey(Integer.MAX_VALUE);
+            int delta = Integer.MIN_VALUE;
+            decreaseKey(x, delta);
+            // now x is the minNode so we just use the deleteMin() method
+            deleteMin();
+            minNode.setKey(Integer.MIN_VALUE);
 
+        }else {
+            // decrease the key of x to the minimum key
+            int delta = Integer.MIN_VALUE;
+            decreaseKey(x, delta);
+            // now x is the minNode so we just use the deleteMin() method
+            deleteMin();
+        }
     }
 
    /**
@@ -377,7 +386,7 @@ public class FibonacciHeap{
             // the new key should be smaller than the current key.
             return;
         }
-        int newKey = x.getKey() - delta;
+        int newKey =(x.getKey() - delta);
         x.setKey(newKey);
         HeapNode parentX = x.parent;
         if (parentX == null || parentX.getKey() <= newKey){
