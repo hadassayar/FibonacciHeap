@@ -11,131 +11,10 @@ public class FibonacciHeap{
     private static int totalCuts;
     private static int totalLinks;
 
-    private HeapNode link(HeapNode a, HeapNode b){
-        totalLinks++;
-        if (a.rank == 0){
-            if (b.key<a.key){
-                b.setChild(a);
-                a.setParent(b);
-                a.setNext(a);
-                a.setPrev(a);
-                b.rank ++;
-                return b;
-            }
-            else {
-                a.setChild(b);
-                b.setParent(a);
-                b.setNext(b);
-                b.setPrev(b);
-                a.rank ++;
-                return a;
-            }
-        }
-        if (b.key<a.key){
-            a.setPrev(b.child.prev);
-            b.child.prev.setNext(a);
-            b.child.setPrev(a);
-            a.setNext(b.child);
-            b.setChild(a);
-            a.setParent(b);
-            b.rank ++;
-            return b;
-        }
-        else {
-            b.setPrev(a.child.prev);
-            a.child.prev.setNext(b);
-            a.child.setPrev(b);
-            b.setNext(a.child);
-            a.setChild(b);
-            b.setParent(a);
-            a.rank ++;
-            return a;
-        }
-    }
-    private int fix_array (HeapNode[] array,HeapNode node){
-        int ranked = node.rank;
-        if (array[node.rank] == null){
-            array[node.rank]=node;
-            return 0;
-        }
-        HeapNode new_node = link(node,array[node.rank]);
-        array[ranked] = null;
-        return fix_array(array, new_node);
-    }
 
-    private HeapNode[] createarray(int cnt){
-        HeapNode[] array = new HeapNode[cnt];
-        HeapNode node = leftNode;
-        for (int i =0;i<array.length;i++){
-            array[i] = node;
-            node = node.next;
-        }
-        return array;
-    }
-
-    private HeapNode[] create_main_array(int cnt){
-        int max = 0;
-        HeapNode node = leftNode;
-        for (int i =0;i<cnt;i++){
-            if (node.rank>max){
-                max = node.rank;
-            }
-            node=node.next;
-        }
-        HeapNode[] array = new HeapNode[max+3 + (int)(Math.log(cnt)/Math.log(2))];
-        return array;
-    }
-
-    private void sort_heap(HeapNode[] array){
-        if (size == 0){
-            return;
-        }
-        HeapNode node1 = null;
-        HeapNode node2 = null;
-        boolean bool = false;
-        for (int i =0;i<array.length;i++){
-            if (array[i]!=null){
-                if (!bool){
-                    leftNode = array[i];
-                    node1 = array[i];
-                    bool = true;
-                }
-                node1.setNext(array[i]);
-                array[i].setPrev(node1);
-                node1 = array[i];
-            }
-            if (i == array.length-1){
-                node1.setNext(leftNode);
-                leftNode.setPrev(node1);
-            }
-        }
-    }
-
-    public int numberOftrees(){
-        if(isEmpty()){
-            return 0;
-        }
-        HeapNode node = leftNode.next;
-        int cnt = 1;
-        while (node != leftNode){
-            cnt +=1;
-            node = node.next;
-        }
-        return cnt;
-    }
-
-
-    private void consolidation() {
-        int trees_number = numberOftrees();
-        HeapNode[] itarray = createarray(trees_number);
-        HeapNode[] mainarray = create_main_array(trees_number);
-        for (HeapNode node : itarray) {
-            fix_array(mainarray, node);
-        }
-        sort_heap(mainarray);
-    }
    /**
     * public boolean isEmpty()
+    * O(1)
     *
     * Returns true if and only if the Heap is empty.
     *
@@ -147,6 +26,7 @@ public class FibonacciHeap{
 
    /**
     * public HeapNode insert(int key)
+    * O(1)
     *
     * Creates a node (of type HeapNode) which contains the given key, and inserts it into the Heap.
     * The added key is assumed not to already belong to the Heap.
@@ -173,6 +53,7 @@ public class FibonacciHeap{
 
    /**
     * public void deleteMin()
+    * O(logn)
     *
     * Deletes the node containing the minimum key.
     *
@@ -257,17 +138,6 @@ public class FibonacciHeap{
             nxt.setPrev(childNode.prev);
             childNode.setPrev(prv);
             prv.setNext(childNode);
-
-
-
-
-//            minNode.prev.setNext(minNode.next);
-//            minNode.next.setPrev(minNode.prev);
-//            childNode.prev.setNext(leftNode);
-//            childNode.setPrev(leftNode.prev);
-//            leftNode.prev.setNext(childNode);
-//            leftNode.setPrev(childNode.prev);
-//            leftNode = childNode;
             minNode.setChild(null);
             consolidation();
             minNode.setKey(Integer.MAX_VALUE);
@@ -276,8 +146,193 @@ public class FibonacciHeap{
         }
     }
 
+    /**
+     * private void consolidation() {
+     * O(n)
+     *
+     *  consolidates the trees in a Fibonacci heap by repeatedly linking trees with the same
+     *  degree until there are no more trees with the same degree.
+     *
+     */
+    private void consolidation() {
+        int trees_number = numberOftrees();
+        HeapNode[] itarray = createarray(trees_number);
+        HeapNode[] mainarray = create_main_array(trees_number);
+        for (HeapNode node : itarray) {
+            fix_array(mainarray, node);
+        }
+        sort_heap(mainarray);
+    }
+
+    /**
+     *  private HeapNode link(HeapNode a, HeapNode b)
+     *  O(1)
+     *
+     * method links two trees of the same degree in a Fibonacci heap by adding one tree as the child of the other,
+     * with the tree having the smaller key becoming the child.
+     *
+     * The method takes two HeapNode objects as parameters and returns the HeapNode object that becomes the parent of the other node.
+     *
+     */
+    private HeapNode link(HeapNode a, HeapNode b){
+        totalLinks++;
+        if (a.rank == 0){
+            if (b.key<a.key){
+                b.setChild(a);
+                a.setParent(b);
+                a.setNext(a);
+                a.setPrev(a);
+                b.rank ++;
+                return b;
+            }
+            else {
+                a.setChild(b);
+                b.setParent(a);
+                b.setNext(b);
+                b.setPrev(b);
+                a.rank ++;
+                return a;
+            }
+        }
+        if (b.key<a.key){
+            a.setPrev(b.child.prev);
+            b.child.prev.setNext(a);
+            b.child.setPrev(a);
+            a.setNext(b.child);
+            b.setChild(a);
+            a.setParent(b);
+            b.rank ++;
+            return b;
+        }
+        else {
+            b.setPrev(a.child.prev);
+            a.child.prev.setNext(b);
+            a.child.setPrev(b);
+            b.setNext(a.child);
+            a.setChild(b);
+            b.setParent(a);
+            a.rank ++;
+            return a;
+        }
+    }
+    /**
+     * private int fix_array (HeapNode[] array,HeapNode node)
+     *O(n)
+     *
+     * helps with the consolidation process by adding a node to an array of nodes
+     * and then repeatedly linking the node with other nodes in the array that have the same degree,
+     * until a slot in the array becomes available.
+     *
+     * The method takes an array of HeapNode objects and a HeapNode object as parameters,
+     * and returns an integer indicating the number of times the node was linked with other nodes in the array.
+     *
+     */
+    private int fix_array (HeapNode[] array,HeapNode node){
+        int ranked = node.rank;
+        if (array[node.rank] == null){
+            array[node.rank]=node;
+            return 0;
+        }
+        HeapNode new_node = link(node,array[node.rank]);
+        array[ranked] = null;
+        return fix_array(array, new_node);
+    }
+    /**
+     *  private HeapNode[] createarray(int cnt)
+     *O(n)
+     *
+     * Creates an array of HeapNode objects representing the trees in a Fibonacci heap.
+     * The method takes an integer as a parameter and returns an array of HeapNode objects.
+     *
+     */
+    private HeapNode[] createarray(int cnt){
+        HeapNode[] array = new HeapNode[cnt];
+        HeapNode node = leftNode;
+        for (int i =0;i<array.length;i++){
+            array[i] = node;
+            node = node.next;
+        }
+        return array;
+    }
+    /**
+     * private HeapNode[] create_main_array(int cnt)
+     *O(n)
+     *
+     * creates an array of HeapNode objects that will be used during the consolidation process.
+     *
+     * The method takes an integer as a parameter and returns an array of HeapNode objects
+     *
+     */
+    private HeapNode[] create_main_array(int cnt){
+        int max = 0;
+        HeapNode node = leftNode;
+        for (int i =0;i<cnt;i++){
+            if (node.rank>max){
+                max = node.rank;
+            }
+            node=node.next;
+        }
+        HeapNode[] array = new HeapNode[max+3 + (int)(Math.log(cnt)/Math.log(2))];
+        return array;
+    }
+    /**
+     * private void sort_heap(HeapNode[] array)
+     *O(n)
+     *
+     * Reorders the nodes in a Fibonacci heap so that they form a circular linked list, with the minimum node at the front.
+     *
+     * The method takes an array of HeapNode objects as a parameter.
+     *
+     */
+    private void sort_heap(HeapNode[] array){
+        if (size == 0){
+            return;
+        }
+        HeapNode node1 = null;
+        HeapNode node2 = null;
+        boolean bool = false;
+        for (int i =0;i<array.length;i++){
+            if (array[i]!=null){
+                if (!bool){
+                    leftNode = array[i];
+                    node1 = array[i];
+                    bool = true;
+                }
+                node1.setNext(array[i]);
+                array[i].setPrev(node1);
+                node1 = array[i];
+            }
+            if (i == array.length-1){
+                node1.setNext(leftNode);
+                leftNode.setPrev(node1);
+            }
+        }
+    }
+    /**
+     * public int numberOftrees()
+     * O(t) t is the number of trees in the heap
+     *
+     * Counts the number of trees in a Fibonacci heap.
+     *
+     */
+    public int numberOftrees(){
+        if(isEmpty()){
+            return 0;
+        }
+        HeapNode node = leftNode.next;
+        int cnt = 1;
+        while (node != leftNode){
+            cnt +=1;
+            node = node.next;
+        }
+        return cnt;
+    }
+
+
+
    /**
     * public HeapNode findMin()
+    * O(t) the number of roots
     *
     * Returns the node of the Heap whose key is minimal, or null if the Heap is empty.
     *
@@ -303,6 +358,7 @@ public class FibonacciHeap{
 
    /**
     * public void meld (FibonacciHeap heap2)
+    * O(1)
     *
     * Melds heap2 with the current Heap.
     *
@@ -332,6 +388,7 @@ public class FibonacciHeap{
 
    /**
     * public int size()
+    * O(1)
     *
     * Returns the number of elements in the Heap.
     *
@@ -343,6 +400,7 @@ public class FibonacciHeap{
 
     /**
     * public int[] countersRep()
+     * O(n)
     *
     * Return an array of counters. The i-th entry contains the number of trees of order i in the Heap.
     * (Note: The size of the array depends on the maximum order of a tree.)
@@ -373,6 +431,7 @@ public class FibonacciHeap{
 
    /**
     * public void delete(HeapNode x)
+    * O(log n)
     *
     * Deletes the node x from the Heap.
 	* It is assumed that x indeed belongs to the Heap.
@@ -403,6 +462,7 @@ public class FibonacciHeap{
 
    /**
     * public void decreaseKey(HeapNode x, int delta)
+    * O(logn)
     *
     * Decreases the key of the node x by a non-negative value delta. The structure of the Heap should be updated
     * to reflect this change (for example, the cascading cuts procedure should be applied if needed).
@@ -422,10 +482,14 @@ public class FibonacciHeap{
         }else{
             cascadingCut(x,parentX);}
         if(newKey < minNode.getKey()){minNode = x;}//update minNode
-
-
     }
 
+    /**
+     * private void cut(HeapNode x, HeapNode parentX)
+     * O(1)
+     *
+     * removes a node from its parent and adds it back into the root list of the Fibonacci heap.
+     */
     private void cut(HeapNode x, HeapNode parentX){
         totalCuts++;
         if(x.next == x){// the node is the only child of its parent(point to himself) so we just cut.
@@ -452,6 +516,15 @@ public class FibonacciHeap{
         }
         leftNode = x;
     }
+    /**
+     * private void cascadingCut(HeapNode x, HeapNode parentX)
+     * O(logn)
+     *
+     *  cuts up the tree by repeatedly calling the cut() method on a node and its parent,
+     *  until a node is encountered that is not marked or until the root of the tree is reached.
+     *  This method is used to maintain the heap's min-heap property when a node's key is decreased
+     *  or when a node is removed from the heap.
+     */
 
     private void cascadingCut(HeapNode x, HeapNode parentX) {
         cut(x,parentX);
@@ -467,6 +540,7 @@ public class FibonacciHeap{
     }
    /**
     * public int nonMarked()
+    * O(1)
     *
     * This function returns the current number of non-marked items in the Heap
     */
@@ -477,6 +551,7 @@ public class FibonacciHeap{
 
    /**
     * public int potential()
+    * O(t) the number of trees
     *
     * This function returns the current potential of the Heap, which is:
     * Potential = #trees + 2*#marked
@@ -493,6 +568,7 @@ public class FibonacciHeap{
 
    /**
     * public static int totalLinks()
+    * O(1)
     *
     * This static function returns the total number of link operations made during the
     * run-time of the program. A link operation is the operation which gets as input two
@@ -506,6 +582,7 @@ public class FibonacciHeap{
 
    /**
     * public static int totalCuts()
+    * O(1)
     *
     * This static function returns the total number of cut operations made during the
     * run-time of the program. A cut operation is the operation which disconnects a subtree
@@ -516,15 +593,14 @@ public class FibonacciHeap{
     	return totalCuts;
     }
 
-     /**
-    * public static int[] kMin(FibonacciHeap H, int k)
-    *
-    * This static function returns the k smallest elements in a Fibonacci Heap that contains a single tree.
-    * The function should run in O(k*deg(H)). (deg(H) is the degree of the only tree in H.)
-    *
-    * ###CRITICAL### : you are NOT allowed to change H.
-    */
-     public HeapNode insertforkMin(int key,HeapNode cnode)
+    /**
+     * private HeapNode insertforkMin(int key,HeapNode cnode)
+     * O(1)
+     *
+     * method adds a new node with the specified key to a Fibonacci heap for kmin() use.
+     *
+     */
+     private HeapNode insertforkMin(int key,HeapNode cnode)
      {
          HeapNode node =new HeapNode(key);
          node.setConnected(cnode);
@@ -542,7 +618,15 @@ public class FibonacciHeap{
          size ++;
          return node ;
      }
-
+    /**
+     * public static int[] kMin(FibonacciHeap H, int k)
+     * O(k * deg(H))
+     *
+     * This static function returns the k smallest elements in a Fibonacci Heap that contains a single tree.
+     * The function should run in O(k*deg(H)). (deg(H) is the degree of the only tree in H.)
+     *
+     * ###CRITICAL### : you are NOT allowed to change H.
+     */
     public static int[] kMin(FibonacciHeap H, int k)
     {
         if (k == 0){
@@ -581,6 +665,14 @@ public class FibonacciHeap{
         }
         return arr;
     }
+
+    /**
+     * public HeapNode getFirst()
+     * O(1)
+     *
+     * returns the leftNode of the heap.
+     *
+     */
     public HeapNode getFirst(){
         return leftNode;
     }
