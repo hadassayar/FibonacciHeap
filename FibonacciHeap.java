@@ -379,7 +379,10 @@ public class FibonacciHeap{
     *
     */
     public void delete(HeapNode x)
-    {   if (x.marked){totalMarked--;}
+    {   if (x.marked){
+            x.marked =false;
+            totalMarked--;
+    }
         if(minNode.getKey() == Integer.MIN_VALUE){
             // decrease the key of x to the minimum key
             minNode.setKey(Integer.MAX_VALUE);
