@@ -431,7 +431,7 @@ public class FibonacciHeap{
 
    /**
     * public void delete(HeapNode x)
-    * O(log n)
+    * O(n)
     *
     * Deletes the node x from the Heap.
 	* It is assumed that x indeed belongs to the Heap.
@@ -518,7 +518,7 @@ public class FibonacciHeap{
     }
     /**
      * private void cascadingCut(HeapNode x, HeapNode parentX)
-     * O(logn)
+     * O(h) h is the height of the tree.
      *
      *  cuts up the tree by repeatedly calling the cut() method on a node and its parent,
      *  until a node is encountered that is not marked or until the root of the tree is reached.
