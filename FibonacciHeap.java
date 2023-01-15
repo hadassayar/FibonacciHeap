@@ -379,25 +379,30 @@ public class FibonacciHeap{
     public void meld (FibonacciHeap heap2)
     {
         FibonacciHeap heap1 = this;
-        if(heap1.isEmpty()){
-            heap1.minNode = heap2.minNode;
-            heap1.leftNode = heap2.leftNode;
-            heap1.size = heap2.size;
-            heap1.totalMarked = heap2.totalMarked;
+        if(!heap2.isEmpty()) {
+            if (heap1.isEmpty()) {
+                heap1.minNode = heap2.minNode;
+                heap1.leftNode = heap2.leftNode;
+                heap1.size = heap2.size;
+                heap1.totalMarked = heap2.totalMarked;
+                return;
+            }else{
+                HeapNode temp = heap2.leftNode.next;
+                heap2.leftNode.setNext(heap1.leftNode.next);
+                heap1.leftNode.next.setPrev(heap2.leftNode);
+                heap1.leftNode.setNext(temp);
+                temp.setPrev(heap1.leftNode);
+                if(heap1.minNode.getKey() > heap2.minNode.getKey()){ heap1.minNode = heap2.minNode;}
+                heap1.size += heap2.size;
+                heap1.totalMarked += heap2.totalMarked;
+            }
+
+        }else if (heap2.isEmpty()) {
             return;
         }
-        if(heap2.isEmpty()){
-            return;
-        }
-        HeapNode temp = heap2.leftNode.next;
-        heap2.leftNode.setNext(heap1.leftNode.next);
-        heap1.leftNode.next.setPrev(heap2.leftNode);
-        heap1.leftNode.setNext(temp);
-        temp.setPrev(heap1.leftNode);
-        if(heap1.minNode.getKey() > heap2.minNode.getKey()){ heap1.minNode = heap2.minNode;}
-        heap1.size += heap2.size;
-        heap1.totalMarked += heap2.totalMarked;
     }
+
+
 
    /**
     * public int size()
@@ -450,28 +455,14 @@ public class FibonacciHeap{
 	* It is assumed that x indeed belongs to the Heap.
     *
     */
-    public void delete(HeapNode x)
-    {   if (x.marked){
-            x.marked =false;
-            totalMarked--;
-    }
-        if(minNode.getKey() == Integer.MIN_VALUE){
-            // decrease the key of x to the minimum key
-            minNode.setKey(Integer.MAX_VALUE);
-            int delta = Integer.MIN_VALUE;
-            decreaseKey(x, delta);
-            // now x is the minNode so we just use the deleteMin() method
-            deleteMin();
-            minNode.setKey(Integer.MIN_VALUE);
+    public void delete(HeapNode x){
 
-        }else {
-            // decrease the key of x to the minimum key
-            int delta = Integer.MIN_VALUE;
-            decreaseKey(x, delta);
-            // now x is the minNode so we just use the deleteMin() method
-            deleteMin();
-        }
+        decreaseKey(x,Integer.MIN_VALUE);
+        deleteMin();
+        return;
     }
+
+
 
    /**
     * public void decreaseKey(HeapNode x, int delta)
@@ -482,19 +473,19 @@ public class FibonacciHeap{
     */
     public void decreaseKey(HeapNode x, int delta)
     {
-    	if(x.getKey() - delta > x.getKey() ){
-            // the new key should be smaller than the current key.
-            return;
-        }
-        int newKey =(x.getKey() - delta);
-        x.setKey(newKey);
-        HeapNode parentX = x.parent;
-        if (parentX == null || parentX.getKey() <= newKey){
-            if(newKey < minNode.getKey()){minNode = x;}
-            return;
+
+        if(delta == Integer.MIN_VALUE){
+            x.setKey(Integer.MIN_VALUE);
         }else{
-            cascadingCut(x,parentX);}
-        if(newKey < minNode.getKey()){minNode = x;}//update minNode
+            x.setKey(x.getKey() - delta);
+        }
+        if(x.getKey() < minNode.getKey()){
+            minNode =x;
+        }
+        if(x.parent != null && x.getKey() < x.parent.getKey()){
+            cascadingCut(x,x.parent);
+        }
+        return;
     }
 
     /**
