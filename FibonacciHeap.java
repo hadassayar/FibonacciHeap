@@ -1,3 +1,10 @@
+//# name1    - Yuval Shmaryahu
+//        # username1 - shmaryahu1@mail.tau.ac.il
+//# id1      - 208581702
+//
+//        # name2    - Hadas Sayar
+//        # username2 - Hadassayar@mail.tau.ac.il
+//# id2      - 209058510
 /**
  * FibonacciHeap
  *
@@ -156,10 +163,16 @@ public class FibonacciHeap{
      */
     private void consolidation() {
         int trees_number = numberOftrees();
-        HeapNode[] itarray = createarray(trees_number);
+//        HeapNode[] itarray = createarray(trees_number);
         HeapNode[] mainarray = create_main_array(trees_number);
-        for (HeapNode node : itarray) {
+//        for (HeapNode node : itarray) {
+//            fix_array(mainarray, node);
+//        }
+        HeapNode node = leftNode;
+        for (int i =0;i<trees_number;i++){
+            HeapNode next = node.next;
             fix_array(mainarray, node);
+            node = next;
         }
         sort_heap(mainarray);
     }
